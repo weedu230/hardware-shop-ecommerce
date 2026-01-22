@@ -49,4 +49,4 @@ Universal Hardware is a modern, responsive web application for a hardware store.
 For inquiries about this project or the hardware store, contact via WhatsApp or visit the store location.
 
 ---
-*Built by Universal Hardware Team*
+*Built by waleed*
