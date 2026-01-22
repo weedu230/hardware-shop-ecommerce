@@ -10,24 +10,10 @@ export interface Product {
   price: number;
 }
 
-// Category-based placeholder images from picsum with hardware-themed seeds
-const categoryImages: Record<string, string> = {
-  fasteners: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=400&fit=crop",
-  "hand-tools": "https://images.unsplash.com/photo-1581147036324-c17ac41f3e6d?w=400&h=400&fit=crop",
-  "power-tools": "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=400&fit=crop",
-  "building-materials": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
-  plumbing: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&h=400&fit=crop",
-  electrical: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=400&fit=crop",
-  paint: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&h=400&fit=crop",
-  safety: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=400&fit=crop",
-  measuring: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=400&fit=crop",
-  "doors-fittings": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop",
-  "metal-fabrication": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=400&fit=crop",
-  adhesives: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=400&fit=crop",
-  garden: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop",
-  flooring: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
-  "windows-glass": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=400&fit=crop",
-  miscellaneous: "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=400&fit=crop",
+// Generate unique image for each product using picsum.photos
+const generateProductImage = (productId: number): string => {
+  // Use picsum.photos with seed for consistent, unique images per product
+  return `https://picsum.photos/seed/${productId + 100}/400/400`;
 };
 
 // Price ranges per category (in PKR)
@@ -359,15 +345,18 @@ let productId = 1;
 export const products: Product[] = Object.entries(productsByCategory).flatMap(
   ([categorySlug, items]) => {
     const category = categories.find((c) => c.slug === categorySlug);
-    return items.map((name, index) => ({
-      id: `prod-${productId++}`,
-      name,
-      category: category?.name || categorySlug,
-      categorySlug,
-      description: generateDescription(name, categorySlug),
-      image: categoryImages[categorySlug] || categoryImages.miscellaneous,
-      price: generatePrice(categorySlug, index),
-    }));
+    return items.map((name, index) => {
+      const currentId = productId++;
+      return {
+        id: `prod-${currentId}`,
+        name,
+        category: category?.name || categorySlug,
+        categorySlug,
+        description: generateDescription(name, categorySlug),
+        image: generateProductImage(currentId),
+        price: generatePrice(categorySlug, index),
+      };
+    });
   }
 );
 
