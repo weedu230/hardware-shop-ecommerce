@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Package } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const phoneNumber = "923001234567";
-  const message = `Hi! I'm interested in: ${product.name}. Please share details.`;
+  const message = `Hi! I'm interested in: ${product.name} (Rs. ${product.price.toLocaleString()}). Please share details.`;
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -19,10 +19,15 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
       transition={{ delay: index * 0.05, duration: 0.4 }}
       className="hardware-card group overflow-hidden"
     >
-      {/* Image Placeholder */}
-      <div className="aspect-square bg-secondary flex items-center justify-center relative overflow-hidden">
-        <Package className="w-16 h-16 text-muted-foreground/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
+      {/* Product Image */}
+      <div className="aspect-square bg-secondary relative overflow-hidden">
+        <img 
+          src={product.image} 
+          alt={product.name}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         
         {/* Category Badge */}
         <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-accent text-accent-foreground rounded-md">
@@ -32,9 +37,17 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
 
       {/* Content */}
       <div className="p-4 space-y-3">
-        <h3 className="font-semibold text-foreground line-clamp-1 group-hover:text-accent transition-colors">
-          {product.name}
-        </h3>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-semibold text-foreground line-clamp-1 group-hover:text-accent transition-colors">
+            {product.name}
+          </h3>
+        </div>
+        
+        {/* Price */}
+        <div className="text-lg font-bold text-accent">
+          Rs. {product.price.toLocaleString()}
+        </div>
+        
         <p className="text-sm text-muted-foreground line-clamp-2">
           {product.description}
         </p>

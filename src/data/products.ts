@@ -6,8 +6,55 @@ export interface Product {
   category: string;
   categorySlug: string;
   description: string;
-  image?: string;
+  image: string;
+  price: number;
 }
+
+// Category-based placeholder images from picsum with hardware-themed seeds
+const categoryImages: Record<string, string> = {
+  fasteners: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=400&fit=crop",
+  "hand-tools": "https://images.unsplash.com/photo-1581147036324-c17ac41f3e6d?w=400&h=400&fit=crop",
+  "power-tools": "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=400&fit=crop",
+  "building-materials": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+  plumbing: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&h=400&fit=crop",
+  electrical: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=400&fit=crop",
+  paint: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&h=400&fit=crop",
+  safety: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=400&fit=crop",
+  measuring: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=400&fit=crop",
+  "doors-fittings": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=400&fit=crop",
+  "metal-fabrication": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=400&fit=crop",
+  adhesives: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=400&fit=crop",
+  garden: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop",
+  flooring: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+  "windows-glass": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=400&fit=crop",
+  miscellaneous: "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=400&h=400&fit=crop",
+};
+
+// Price ranges per category (in PKR)
+const priceRanges: Record<string, [number, number]> = {
+  fasteners: [10, 500],
+  "hand-tools": [200, 5000],
+  "power-tools": [3000, 50000],
+  "building-materials": [100, 3000],
+  plumbing: [50, 8000],
+  electrical: [30, 15000],
+  paint: [100, 5000],
+  safety: [200, 10000],
+  measuring: [150, 8000],
+  "doors-fittings": [100, 5000],
+  "metal-fabrication": [500, 20000],
+  adhesives: [50, 2000],
+  garden: [300, 8000],
+  flooring: [200, 5000],
+  "windows-glass": [500, 15000],
+  miscellaneous: [50, 5000],
+};
+
+const generatePrice = (categorySlug: string, index: number): number => {
+  const [min, max] = priceRanges[categorySlug] || [100, 1000];
+  const seed = index * 17 + categorySlug.length;
+  return Math.round((min + (seed % (max - min))) / 10) * 10;
+};
 
 export interface Category {
   id: string;
@@ -312,12 +359,14 @@ let productId = 1;
 export const products: Product[] = Object.entries(productsByCategory).flatMap(
   ([categorySlug, items]) => {
     const category = categories.find((c) => c.slug === categorySlug);
-    return items.map((name) => ({
+    return items.map((name, index) => ({
       id: `prod-${productId++}`,
       name,
       category: category?.name || categorySlug,
       categorySlug,
       description: generateDescription(name, categorySlug),
+      image: categoryImages[categorySlug] || categoryImages.miscellaneous,
+      price: generatePrice(categorySlug, index),
     }));
   }
 );
