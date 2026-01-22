@@ -1,1 +1,1 @@
-client project for a hardware store its th prototype not the the actual website
+client project for a hardware store its just a prototype not the the actual website
