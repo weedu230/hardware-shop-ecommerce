@@ -1,7 +1,7 @@
-# Universal Hardware - Project Description
+# Usman Hardware - Project Description
 
 ## Overview
-Universal Hardware is a modern, responsive web application for a hardware store. This is a prototype showcasing the store's product catalog and services.
+Usman Hardware is a modern, responsive web application for a hardware store. This is a prototype showcasing the store's product catalog and services.
 
 ## Features
 
