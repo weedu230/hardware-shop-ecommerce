@@ -1,4 +1,4 @@
-# Usman Hardware - Project Description
+ # Usman Hardware - Project Description
 
 ## Overview
 Usman Hardware is a modern, responsive web application for a hardware store. This is a prototype showcasing the store's product catalog and services.
