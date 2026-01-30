@@ -49,4 +49,4 @@ Usman Hardware is a modern, responsive web application for a hardware store. Thi
 For inquiries about this project or the hardware store, contact via WhatsApp or visit the store location.
 
 ---
-*Built by waleed*
+*Built by waleed ahmed*
