@@ -31,6 +31,11 @@ Usman Hardware is a modern, responsive web application for a hardware store. Thi
 - **About Us**: Company information and history
 - **Contact Us**: Store location, hours, and contact details
 
+
+https://github.com/user-attachments/assets/3536b13e-ee12-4b4a-8317-9e0ebe54d10a
+
+
+
 ## Tech Stack
 - **Frontend**: React 18 with TypeScript
 - **Styling**: Tailwind CSS with custom design tokens
